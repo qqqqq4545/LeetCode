@@ -18,6 +18,7 @@ private:
     int capacity;
     int size;
     
+    //addNode in the back of the head
     void addNode(DLinkedNode* node) {
         node->prev = head;
         node->next = head->next;
@@ -34,17 +35,20 @@ private:
         next->prev = prev;
     }
     
+    //moveToHead (mark as recently used)
     void moveToHead(DLinkedNode* node) {
         removeNode(node);
         addNode(node);
     }
     
+    //removeTail (Least recently used)
     DLinkedNode* removeTail() {
         DLinkedNode* node = tail->prev;
         removeNode(node);
         return node;
     }
-    
+
+//initialize    
 public:
     LRUCache(int capacity) {
         this->capacity = capacity;
@@ -58,7 +62,7 @@ public:
     }
     
     ~LRUCache() {
-        // Clean up all nodes to prevent memory leaks
+        // when life cycle finished,clean up all nodes to prevent memory leaks
         DLinkedNode* curr = head;
         while (curr != nullptr) {
             DLinkedNode* next = curr->next;
@@ -81,6 +85,7 @@ public:
     }
     
     void put(int key, int value) {
+        // if key exists in cache
         if (cache.find(key) != cache.end()) {
             // Update the value and move to head
             DLinkedNode* node = cache[key];
