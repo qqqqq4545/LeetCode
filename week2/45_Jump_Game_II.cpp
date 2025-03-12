@@ -1,4 +1,3 @@
-```cpp
 class Solution {
 public:
     int jump(vector<int>& nums) {
@@ -30,4 +29,3 @@ public:
         return jumps;
     }
 };
-```
