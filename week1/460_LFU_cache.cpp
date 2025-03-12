@@ -1,4 +1,3 @@
-```cpp
 class LFUCache {
 private:
     int capacity;
@@ -6,7 +5,8 @@ private:
     unordered_map<int, pair<int, int>> keyToValFreq;
     unordered_map<int, list<int>::iterator> keyToIter;
     unordered_map<int, list<int>> freqToKeys;
-    
+
+// initialize
 public:
     LFUCache(int capacity) {
         this->capacity = capacity;
@@ -14,6 +14,7 @@ public:
     }
     
     int get(int key) {
+        // if the key exist ,return -1
         if (keyToValFreq.find(key) == keyToValFreq.end()) {
             return -1;
         }
@@ -35,11 +36,12 @@ public:
             return;
         }
         
-        // If cache is full, remove least frequently used key
+        // If cache is full, remove the key which is least frequently used
         if (keyToValFreq.size() >= capacity) {
-            int keyToRemove = freqToKeys[minFreq].back();
-            freqToKeys[minFreq].pop_back();
-            
+            int keyToRemove = freqToKeys[minFreq].back(); // get the longest unused key in minFreq
+            freqToKeys[minFreq].pop_back(); // remove from freq list
+
+            // if freq list is empty,clean it
             if (freqToKeys[minFreq].empty()) {
                 freqToKeys.erase(minFreq);
             }
@@ -57,13 +59,13 @@ public:
     
 private:
     void updateFrequency(int key) {
-        int freq = keyToValFreq[key].second;
+        int freq = keyToValFreq[key].second; // get the freq right now
         
-        int val = keyToValFreq[key].first;
+        int val = keyToValFreq[key].first; // get the key
         
-        freqToKeys[freq].erase(keyToIter[key]);
+        freqToKeys[freq].erase(keyToIter[key]); // remove the key from freq list
         
-        if (freqToKeys[freq].empty()) {
+        if (freqToKeys[freq].empty()) {  //if freq list is empty ,clean it and update minFreq
             freqToKeys.erase(freq);
             if (freq == minFreq) {
                 minFreq++;
@@ -72,7 +74,7 @@ private:
         
         freq++;
         
-        freqToKeys[freq].push_front(key);
+        freqToKeys[freq].push_front(key); // put the key in the freq list
         
         keyToValFreq[key] = {val, freq};
         keyToIter[key] = freqToKeys[freq].begin();
@@ -85,4 +87,3 @@ private:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
-```

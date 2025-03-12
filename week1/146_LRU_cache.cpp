@@ -1,4 +1,3 @@
-```cpp
 class LRUCache {
 private:
     struct DLinkedNode {
@@ -123,5 +122,3 @@ public:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
-```
-
