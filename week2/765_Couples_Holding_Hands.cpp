@@ -11,8 +11,7 @@ public:
         }
         
         for (int i = 0; i < n; i += 2) {
-            int person = row[i];
-            int partner = person % 2 == 0 ? person + 1 : person - 1;
+            int partner = row[i] % 2 == 0 ? row[i] + 1 : row[i] - 1;
             
             // If partner is not next to the current person
             if (row[i + 1] != partner) {
